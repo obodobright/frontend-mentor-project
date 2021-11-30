@@ -29,7 +29,7 @@ const Time = styled.div`
   letter-spacing: 1.6px;
 `;
 const Text = styled.div`
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 400;
   letter-spacing: 1.6px;
   opacity: 0.6;
@@ -37,16 +37,20 @@ const Text = styled.div`
 `;
 const AveTime = styled.div``;
 const TravelTime = styled.div`
-  margin-top: 30px;
+  margin-top: 60px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 400px;
   position: relative;
   ::before {
-    content: "bright";
+    content: "";
     position: absolute;
-    top: 20px;
+    top: -20px;
+    width: 100%;
+    height: 1px;
+    background: whitesmoke;
+    opacity: 0.2;
   }
 `;
 const DestinationDesc = styled.div`

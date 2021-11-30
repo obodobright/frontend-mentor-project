@@ -13,12 +13,12 @@ export const Destination = () => {
 
   const handleMars = () => {
     setShowMoon(false);
-    setShowMars(!showMars);
+    setShowMars(true);
     setShowEuropa(false);
     setShowTitan(false);
   };
   const handleMoon = () => {
-    setShowMoon(!showMoon);
+    setShowMoon(true);
     setShowMars(false);
     setShowEuropa(false);
     setShowTitan(false);
@@ -26,14 +26,14 @@ export const Destination = () => {
   const handleEuropa = () => {
     setShowMoon(false);
     setShowMars(false);
-    setShowEuropa(!showEuropa);
+    setShowEuropa(true);
     setShowTitan(false);
   };
   const handleTitan = () => {
     setShowMoon(false);
     setShowMars(false);
     setShowEuropa(false);
-    setShowTitan(!showTitan);
+    setShowTitan(true);
   };
 
   // calling from the useFetch function
@@ -130,21 +130,23 @@ const ImageHolder = styled.div``;
 const Links = styled.div`
   color: white;
   margin: 0 20px;
+  margin-bottom: 30px;
   position: relative;
   cursor: pointer;
-  ::after {
-    content: "";
-    position: absolute;
-    height: 0.18rem;
-    width: 100%;
-    top: 20px;
-    left: 0;
-    background: whitesmoke;
-  }
+  // ::after {
+  //   content: "";
+  //   position: absolute;
+  //   height: 0.18rem;
+  //   width: 100%;
+  //   top: 20px;
+  //   left: 0;
+  //   background: whitesmoke;
+  // }
 `;
 const LinkHolder = styled.div`
   display: flex;
   width: 400px;
+  margin-left: -20px;
 `;
 
 const ContentHead = styled.div`
