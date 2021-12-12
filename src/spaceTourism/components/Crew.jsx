@@ -1,14 +1,28 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import CrewCard from "../layout/crewCard";
-import { useFetchCrew } from "../hooks/fetchCrew";
+import { useFetchUrl } from "../hooks/helperHook";
+import { useEventList } from "../layout/Event";
 
 export const Crew = () => {
-  const { crew1, crew2, crew3, crew4, myCrew1, myCrew2, myCrew3, myCrew4 } = useFetchCrew();
   const [c1, setC1] = useState(true);
   const [c2, setC2] = useState(false);
   const [c3, setC3] = useState(false);
   const [c4, setC4] = useState(false);
+
+  const url = "http://localhost:3000/crew";
+
+  const { data, setData } = useFetchUrl(url);
+  const {
+    handleEuropa,
+    handleTitan,
+    handleMoon,
+    handleMars,
+    showTitan,
+    showMoon,
+    showMars,
+    showEuropa,
+  } = useEventList();
 
   const handleC1 = () => {
     setC1(true);
@@ -35,16 +49,6 @@ export const Crew = () => {
     setC4(true);
   };
 
-  const fetchCrew = () => {
-    myCrew1();
-    myCrew2();
-    myCrew3();
-    myCrew4();
-  };
-
-  useEffect(() => {
-    fetchCrew();
-  }, []);
   return (
     <Container>
       <Wrapper>
@@ -53,34 +57,34 @@ export const Crew = () => {
         </Title>
         {c1 && (
           <CrewCard
-            name={crew1?.name}
-            role={crew1?.role}
-            bio={crew1?.bio}
-            image={crew1?.images?.png}
+            name={data?.[0]?.name}
+            role={data?.[0]?.role}
+            bio={data?.[0]?.bio}
+            image={data?.[0]?.images?.png}
           />
         )}
         {c2 && (
           <CrewCard
-            name={crew2?.name}
-            role={crew2?.role}
-            bio={crew2?.bio}
-            image={crew2?.images?.png}
+            name={data?.[1]?.name}
+            role={data?.[1]?.role}
+            bio={data?.[1]?.bio}
+            image={data?.[1]?.images?.png}
           />
         )}
         {c3 && (
           <CrewCard
-            name={crew3?.name}
-            role={crew3?.role}
-            bio={crew3?.bio}
-            image={crew3?.images?.png}
+            name={data?.[2]?.name}
+            role={data?.[2]?.role}
+            bio={data?.[2]?.bio}
+            image={data?.[2]?.images?.png}
           />
         )}
         {c4 && (
           <CrewCard
-            name={crew4?.name}
-            role={crew4?.role}
-            bio={crew4?.bio}
-            image={crew4?.images?.png}
+            name={data?.[3]?.name}
+            role={data?.[3]?.role}
+            bio={data?.[3]?.bio}
+            image={data?.[3]?.images?.png}
           />
         )}
 

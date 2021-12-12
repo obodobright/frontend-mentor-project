@@ -1,52 +1,23 @@
 import React from "react";
 import styled from "styled-components";
 import Card from "../layout/card";
-import { useFetch } from "../hooks/useFetch";
+import { useFetchUrl } from "../hooks/helperHook";
+import { useEventList } from "../layout/Event";
 
 export const Destination = () => {
-  const { mar, fetchMar, moon, europa, titan, fetchEuropa, fetchMoon, fetchTitan } = useFetch();
-  const [showMoon, setShowMoon] = React.useState(false);
-  const [showMars, setShowMars] = React.useState(true);
+  const url = "http://localhost:3000/destinations";
+  const { data } = useFetchUrl(url);
 
-  const [showEuropa, setShowEuropa] = React.useState(false);
-  const [showTitan, setShowTitan] = React.useState(false);
-
-  const handleMars = () => {
-    setShowMoon(false);
-    setShowMars(true);
-    setShowEuropa(false);
-    setShowTitan(false);
-  };
-  const handleMoon = () => {
-    setShowMoon(true);
-    setShowMars(false);
-    setShowEuropa(false);
-    setShowTitan(false);
-  };
-  const handleEuropa = () => {
-    setShowMoon(false);
-    setShowMars(false);
-    setShowEuropa(true);
-    setShowTitan(false);
-  };
-  const handleTitan = () => {
-    setShowMoon(false);
-    setShowMars(false);
-    setShowEuropa(false);
-    setShowTitan(true);
-  };
-
-  // calling from the useFetch function
-  const getMarData = () => {
-    fetchMar();
-    fetchMoon();
-    fetchTitan();
-    fetchEuropa();
-  };
-
-  React.useEffect(() => {
-    getMarData();
-  }, []);
+  const {
+    handleEuropa,
+    handleMars,
+    handleMoon,
+    handleTitan,
+    showEuropa,
+    showMars,
+    showTitan,
+    showMoon,
+  } = useEventList();
 
   return (
     <Container>
@@ -57,10 +28,10 @@ export const Destination = () => {
         </ContentHead>
         <Content>
           <ImageHolder>
-            {showMars && <Image src={mar?.images?.png} />}
-            {showMoon && <Image src={moon?.images?.png} />}{" "}
-            {showEuropa && <Image src={europa?.images?.png} />}{" "}
-            {showTitan && <Image src={titan?.images?.png} />}
+            {showMars && <Image src={data?.[1]?.images?.png} />}
+            {showMoon && <Image src={data?.[0]?.images?.png} />}{" "}
+            {showEuropa && <Image src={data?.[2]?.images?.png} />}{" "}
+            {showTitan && <Image src={data?.[3]?.images?.png} />}
           </ImageHolder>
           <Contents>
             <LinkHolder>
@@ -74,34 +45,34 @@ export const Destination = () => {
             <LinkContent>
               {showMars && (
                 <Card
-                  name={mar?.name}
-                  description={mar?.description}
-                  avgTime={mar?.distance}
-                  estTime={mar?.travel}
+                  name={data?.[1]?.name}
+                  description={data?.[1]?.description}
+                  avgTime={data?.[1]?.distance}
+                  estTime={data?.[1]?.travel}
                 />
               )}
               {showMoon && (
                 <Card
-                  name={moon?.name}
-                  description={moon?.description}
-                  avgTime={moon?.distance}
-                  estTime={moon?.travel}
+                  name={data?.[0]?.name}
+                  description={data?.[0]?.description}
+                  avgTime={data?.[0]?.distance}
+                  estTime={data?.[0]?.travel}
                 />
               )}
               {showEuropa && (
                 <Card
-                  name={europa?.name}
-                  description={europa?.description}
-                  avgTime={europa?.distance}
-                  estTime={europa?.travel}
+                  name={data?.[2]?.name}
+                  description={data?.[2]?.description}
+                  avgTime={data?.[2]?.distance}
+                  estTime={data?.[2]?.travel}
                 />
               )}
               {showTitan && (
                 <Card
-                  name={titan?.name}
-                  description={titan?.description}
-                  avgTime={titan?.distance}
-                  estTime={titan?.travel}
+                  name={data?.[3]?.name}
+                  description={data?.[3]?.description}
+                  avgTime={data?.[3]?.distance}
+                  estTime={data?.[3]?.travel}
                 />
               )}
             </LinkContent>
@@ -133,15 +104,6 @@ const Links = styled.div`
   margin-bottom: 30px;
   position: relative;
   cursor: pointer;
-  // ::after {
-  //   content: "";
-  //   position: absolute;
-  //   height: 0.18rem;
-  //   width: 100%;
-  //   top: 20px;
-  //   left: 0;
-  //   background: whitesmoke;
-  // }
 `;
 const LinkHolder = styled.div`
   display: flex;
