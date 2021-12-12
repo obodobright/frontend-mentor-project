@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import CrewCard from "../layout/crewCard";
 import { useFetchUrl } from "../hooks/helperHook";
-import { useEventList } from "../layout/Event";
 
 export const Crew = () => {
   const [c1, setC1] = useState(true);
@@ -12,17 +11,7 @@ export const Crew = () => {
 
   const url = "http://localhost:3000/crew";
 
-  const { data, setData } = useFetchUrl(url);
-  const {
-    handleEuropa,
-    handleTitan,
-    handleMoon,
-    handleMars,
-    showTitan,
-    showMoon,
-    showMars,
-    showEuropa,
-  } = useEventList();
+  const { data } = useFetchUrl(url);
 
   const handleC1 = () => {
     setC1(true);
